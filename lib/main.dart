@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//stateful widget since we are
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -43,8 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _hoveredIndex = -1; //hold
 
   double _rabbitOpacity = 0.0;
-  List<bool> clickedContainers =
-      List.generate(9, (index) => false); //tracks clicked
+  List<bool> clickedContainers = List.generate(
+      9, (index) => false); //tracks clicked ou pas pour l'animation
 
   void _randomizeLeLapinou() {
     rabbitPosition = Random().nextInt(9);
@@ -52,11 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
@@ -80,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
               itemCount: 9,
+              //use item builder to create a mouse region
               itemBuilder: (context, index) {
                 //return gesture detector w the stylyzed aspect as return
                 return MouseRegion(
@@ -131,11 +128,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             : clickedContainers[
                                     index] //else if clickedContainer
                                 ? Colors.yellow[100] //then yellow
-                                : Colors.blue[100], // else standard blue
+                                : Colors.blue[100], // else standar d blue
                         //if showRabbit bool is true and index on rabbit show the rabbit
                         child: Center(
                           child: showRabbit && index == rabbitPosition
-                              ? RabbitIcon(opacity: _rabbitOpacity)//if we are allowed to show the rabbit then
+                              ? RabbitIcon(opacity: showRabbit ? 1 : _rabbitOpacity) //if we are allowed to show the rabbit then
                               : clickedContainers[index]
                                   ? sadEmoji()
                                   : null,
